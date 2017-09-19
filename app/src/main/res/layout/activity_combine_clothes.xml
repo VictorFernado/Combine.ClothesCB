@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:text="@string/title"
     android:textColor="#fff"
-    android:textSize="46sp"
+    android:textSize="50sp"
     android:layout_marginTop="50sp"
     android:typeface="serif"
     android:gravity="center"
