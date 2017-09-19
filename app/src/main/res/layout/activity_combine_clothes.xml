@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/screen"
+    tools:context="com.example.acessolivre.combineclothes.CombineClothes"  >
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/title"
+    android:textColor="#fff"
+    android:textSize="46sp"
+    android:layout_marginTop="50sp"
+    android:typeface="serif"
+    android:gravity="center"
+    android:shadowColor="#F13000"
+    android:shadowDx="1"
+    android:shadowDy="1"
+    android:shadowRadius="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_marginBottom="50sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:id="@+id/btn_camera_1"
+            android:layout_weight="1"
+            android:background="@color/black_overlay"
+            android:layout_marginBottom="20sp"
+            android:onClick="openCamera"
+            android:contentDescription="@string/btn_camera_1"/>
+
+
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:id="@+id/btn_save_clothes"
+            android:layout_weight="1"
+            android:background="@color/black_overlay"
+            android:contentDescription="@string/btn_save_clothes"/>
+
+            </LinearLayout>
+</RelativeLayout>
