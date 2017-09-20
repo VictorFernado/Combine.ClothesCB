@@ -2,7 +2,6 @@
     <string name="app_name">CombineClothes</string>
 
     <string name="title">Combine Clothes</string>
-    <string name="btn_camera_1">Button of camera</string>
-    <string name="btn_save_clothes">Button to save the clothes</string>
+    <string name="subtitle">- cores -</string>
 
 </resources>
