@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tela"
+    android:background="#ccc"
     tools:context="com.example.acessolivre.combineclothes.CombineClothes"  >
     <TextView
         android:layout_width="match_parent"
@@ -31,16 +31,14 @@
             android:layout_weight="1"
             android:onClick="openCamera"
             android:layout_marginBottom="20sp"
-            android:id="@+id/imageButton"
-            android:background="?android:attr/textColorSecondary"/>
+            android:id="@+id/imageButton"/>
 
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="60sp"
             app:srcCompat="@android:drawable/ic_menu_save"
             android:id="@+id/imageButton2"
-            android:layout_weight="1"
-            android:background="?android:attr/textColorSecondary" />
+            android:layout_weight="1"/>
 
     </LinearLayout>
 </RelativeLayout>
