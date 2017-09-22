@@ -4,5 +4,7 @@
 
     <string name="title">Combine Clothes</string>
     <string name="subtitle">- cores -</string>
+    <string name="btnVoltar">Voltar</string>
+
 
 </resources>

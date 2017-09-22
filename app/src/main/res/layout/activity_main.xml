@@ -10,17 +10,17 @@
 
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/makeClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:srcCompat="@drawable/make_click_150x150"
-        android:background="@null"
-        android:layout_marginLeft="40dp"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="72dp" />
+        tools:layout_constraintBottom_creator="1" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/save_look_150x150"
         android:layout_marginEnd="31dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/imageButton"
+        app:layout_constraintLeft_toRightOf="@+id/makeClick"
         android:layout_marginStart="8dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
@@ -37,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.8"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/makeClick"
+        app:layout_constraintTop_toTopOf="@+id/makeClick" />
 
 </android.support.constraint.ConstraintLayout>
