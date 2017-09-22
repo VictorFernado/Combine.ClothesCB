@@ -4,60 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tela"
+    android:background="@drawable/tela_2"
     android:layout_alignParentBottom="true"
     tools:context="com.example.acessolivre.combineclothes.CombineClothes" >
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/subtitle"
-        android:textColor="#fff"
-        android:layout_marginLeft="160dp"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="250dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="160dp" />
 
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:background="@android:drawable/bottom_bar"
-        android:onClick="openCamera"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:layout_marginTop="100dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/make_click_150x150"
+        android:background="@null"
+        android:layout_marginLeft="40dp"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="72dp" />
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:background="@android:drawable/bottom_bar"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/save_look_150x150"
+        android:layout_marginEnd="31dp"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="30dp" />
-
+        app:layout_constraintLeft_toRightOf="@+id/imageButton"
+        android:layout_marginStart="8dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:background="@null"
+        app:layout_constraintHorizontal_bias="0.8"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/imageButton" />
 
 </android.support.constraint.ConstraintLayout>
