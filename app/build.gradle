@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
     defaultConfig {
-        applicationId "combineclothes.projeto.combine_clothes"
+        applicationId "com.example.acessolivre.combineclothes"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1

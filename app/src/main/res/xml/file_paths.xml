@@ -1,0 +1,6 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<external-path name="combine_photos" path="Android/data/com.example.acessolivre.combineclothes/files/Pictures" />-->
+    <external-path name="mediaimages" path="Android/data/com.example.acessolivre.combineclothes/files/Pictures"/>
+    <!--<files-path name="combine_photos" path="photosCB /"/>-->
+</paths>

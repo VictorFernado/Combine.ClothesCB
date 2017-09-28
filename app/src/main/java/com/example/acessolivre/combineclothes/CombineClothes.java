@@ -4,7 +4,6 @@ package com.example.acessolivre.combineclothes;
         import android.os.Bundle;
         import android.widget.*;
         import android.view.*;
-        import combineclothes.projeto.combine_clothes.R;
         import android.content.*;
 
 public class CombineClothes extends AppCompatActivity implements View.OnClickListener {
@@ -14,7 +13,7 @@ public class CombineClothes extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(combineclothes.projeto.combine_clothes.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         makeClick = (ImageButton)findViewById(R.id.makeClick);
         makeClick.setOnClickListener(this);

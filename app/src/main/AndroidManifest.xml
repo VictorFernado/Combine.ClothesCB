@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="combineclothes.projeto.combine_clothes">
+    package="com.example.acessolivre.combineclothes">
 
     <application
         android:allowBackup="true"
@@ -16,9 +16,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.acessolivre.combineclothes.TelaCamera"></activity>
-    </application>
-    <uses-feature android:name="android.hardware.camera2"
-                    android:required="true"/>
+        <activity android:name="com.example.acessolivre.combineclothes.TelaCamera">
 
+
+        </activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+
+    </application>
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="true"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>
