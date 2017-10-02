@@ -1,43 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tela_2"
+    android:background="@drawable/tela_cb"
     android:layout_alignParentBottom="true"
     tools:context="com.example.acessolivre.combineclothes.CombineClothes" >
 
 
     <ImageButton
-        android:id="@+id/makeClick"
+        android:id="@+id/btn_config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/make_click_150x150"
-        tools:layout_constraintBottom_creator="1" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/save_look_150x150"
-        android:layout_marginEnd="31dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/makeClick"
-        android:layout_marginStart="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10sp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_config"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        android:background="@null"
-        app:layout_constraintHorizontal_bias="0.8"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/makeClick"
-        app:layout_constraintTop_toTopOf="@+id/makeClick" />
+        app:srcCompat="@drawable/btn_config" />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/btn_instrucoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10sp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/btn_instrucoes"
+        app:srcCompat="@drawable/btn_instrucoes" />
+
+    <ImageButton
+        android:id="@+id/btn_foto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/btn_foto"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@drawable/btn_foto" />
+
+    <ImageButton
+        android:id="@+id/btn_dicas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="96dp"
+        android:layout_marginStart="25sp"
+        android:background="@drawable/btn_dicas"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:srcCompat="@drawable/btn_dicas" />
+
+    <ImageButton
+        android:id="@+id/btn_closety"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="96dp"
+        android:layout_marginEnd="25sp"
+        android:background="@drawable/btn_closety"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:srcCompat="@drawable/btn_closety" />
+</RelativeLayout>

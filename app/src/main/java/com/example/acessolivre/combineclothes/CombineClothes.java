@@ -8,15 +8,15 @@ package com.example.acessolivre.combineclothes;
 
 public class CombineClothes extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton makeClick;
+    private ImageButton btn_foto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        makeClick = (ImageButton)findViewById(R.id.makeClick);
-        makeClick.setOnClickListener(this);
+        btn_foto = (ImageButton)findViewById(R.id.btn_foto);
+        btn_foto.setOnClickListener(this);
 
     }
 
