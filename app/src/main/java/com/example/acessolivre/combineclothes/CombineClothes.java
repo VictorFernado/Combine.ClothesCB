@@ -6,7 +6,7 @@ package com.example.acessolivre.combineclothes;
         import android.view.*;
         import android.content.*;
 
-public class CombineClothes extends AppCompatActivity implements View.OnClickListener {
+public class CombineClothes extends AppCompatActivity  {
 
     private ImageButton btn_foto;
 
@@ -16,11 +16,10 @@ public class CombineClothes extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_main);
 
         btn_foto = (ImageButton)findViewById(R.id.btn_foto);
-        btn_foto.setOnClickListener(this);
 
     }
 
-    public void onClick(View v){
+    public void openCamera(View v){
         Intent it = new Intent(this, TelaCamera.class);
         startActivity(it);
     }

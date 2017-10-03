@@ -43,6 +43,7 @@
         android:background="@drawable/btn_foto"
         android:scaleX="1.5"
         android:scaleY="1.5"
+        android:onClick="openCamera"
         app:srcCompat="@drawable/btn_foto" />
 
     <ImageButton
