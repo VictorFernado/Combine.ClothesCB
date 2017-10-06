@@ -9,6 +9,7 @@ package com.example.acessolivre.combineclothes;
 public class CombineClothes extends AppCompatActivity  {
 
     private ImageButton btn_foto;
+    private ImageButton btn_dicas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,12 +17,17 @@ public class CombineClothes extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         btn_foto = (ImageButton)findViewById(R.id.btn_foto);
-
+        btn_dicas = (ImageButton)findViewById(R.id.btn_dicas);
     }
 
     public void openCamera(View v){
         Intent it = new Intent(this, TelaCamera.class);
         startActivity(it);
+    }
+
+    public void openDicas(View v){
+        Intent telaDicas = new Intent(this, TelaDicas.class);
+        startActivity(telaDicas);
     }
 }
 
