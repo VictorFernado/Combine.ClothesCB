@@ -13,14 +13,13 @@
         android:id="@+id/btn_config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="10sp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/btn_config"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        app:srcCompat="@drawable/btn_config" />
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        app:srcCompat="@drawable/btn_config"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="24dp" />
 
     <ImageButton
         android:id="@+id/btn_instrucoes"
@@ -28,8 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="10sp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="42dp"
+        android:scaleX="0.3"
+        android:scaleY="0.3"
         android:background="@drawable/btn_instrucoes"
         app:srcCompat="@drawable/btn_instrucoes" />
 
@@ -37,38 +37,39 @@
         android:id="@+id/btn_foto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="13dp"
         android:background="@drawable/btn_foto_hd"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
         android:onClick="openCamera"
-        app:srcCompat="@drawable/btn_foto_hd" />
+        app:srcCompat="@drawable/btn_foto_hd"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/btn_config"
+        android:layout_marginEnd="28dp" />
 
     <ImageButton
         android:id="@+id/btn_dicas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="96dp"
-        android:layout_marginStart="25sp"
         android:background="@drawable/btn_dicas"
-        android:scaleX="1"
-        android:scaleY="1"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
         android:onClick="openDicas"
-        app:srcCompat="@drawable/btn_dicas" />
+        app:srcCompat="@drawable/btn_dicas"
+        android:layout_marginTop="58dp"
+        android:layout_alignTop="@+id/btn_foto"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
-        android:id="@+id/btn_closety"
+        android:id="@+id/btn_closety_hd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollX="1sp"
+        android:scaleX="1"
+        android:scaleY="1"
         android:background="@drawable/btn_closety"
-        android:scaleX="0.3"
-        android:scaleY="0.3"
-        app:srcCompat="@drawable/btn_closety"
-        android:layout_marginStart="152dp"
-        android:layout_alignTop="@+id/btn_foto"
-        android:layout_toEndOf="@+id/btn_dicas" />
+                app:srcCompat="@drawable/btn_closety"
+        android:layout_marginBottom="15dp"
+        android:layout_alignBottom="@+id/btn_dicas"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp" />
 </RelativeLayout>

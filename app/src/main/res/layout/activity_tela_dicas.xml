@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.example.acessolivre.combineclothes.TelaDicas">
+<TextView
+    android:id="@+id/text_1_dicas"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Dicas"
+    android:fontFamily="sans-serif-smallcaps"
+    android:gravity="center"
+    android:textSize="40sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*Seja bem vindo ao seu portal de dicas favorito!*"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/text_1_dicas"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:id="@+id/textView" />
+
+    <ListView
+        android:id="@+id/ListViewDicas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#8C7853"
+        android:layout_below="@+id/textView" />
+
+</RelativeLayout>
