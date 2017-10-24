@@ -7,9 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.graphics.Bitmap;
 import android.support.v4.content.FileProvider;
@@ -30,19 +32,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 public class TelaCamera extends AppCompatActivity {
-
+    private int countBackpress = 0;
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private Button btnVoltar;
-    private ImageView imageHolder;
+    private PhotoView imageHolder;
     private final int requestCode = 20;
     static final int PICTURE_RESULT = 1;
-    Uri selectedImage;
+    private Uri selectedImage;
     private int test = 0;
     private Uri imageUri;
     static final int REQUEST_TAKE_PHOTO = 1;
-    String mCurrentPhotoPath;
+    private String mCurrentPhotoPath;
+    private File mCurrenteFilePhoto;
     private static final String DEBUGTAG = "JWP";
     private Bitmap bitmap;
     private Path mPath;
@@ -51,21 +57,14 @@ public class TelaCamera extends AppCompatActivity {
     private Bitmap imagemTransp = null;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_camera);
-
-        imageHolder = (ImageView) findViewById(R.id.captured_photo);
-        final CanvasView view = (CanvasView) findViewById(R.id.canvas);
-        //final TextView corPred = (TextView) findViewById(R.id.cordenates);
+    private void takePicture(){
 
         Intent intent = new Intent();
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         File photoFile = null;
+
         try {
             photoFile = createImageFile();
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -77,6 +76,20 @@ public class TelaCamera extends AppCompatActivity {
         //intent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
         startActivityForResult(intent, ACTIVITY_START_CAMERA_APP);
         //dispatchTakePictureIntent();
+
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tela_camera);
+
+        imageHolder = (PhotoView) findViewById(R.id.captured_photo);
+        final CanvasView view = (CanvasView) findViewById(R.id.canvas);
+        //final TextView corPred = (TextView) findViewById(R.id.cordenates);
+
+        takePicture();
 
         addTouchListener();
 
@@ -98,6 +111,26 @@ public class TelaCamera extends AppCompatActivity {
                 }
             });
         }
+
+
+        ImageButton btnZoom = (ImageButton) findViewById(R.id.btn_zoom);
+        btnZoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageHolder.setScale(imageHolder.getScale()+0.2F);
+            }
+        });
+
+        ImageButton btnNewPic = (ImageButton) findViewById(R.id.btn_new_picture);
+        btnNewPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrenteFilePhoto != null) {
+                    mCurrenteFilePhoto.delete();
+                }
+                takePicture();
+            }
+        });
     }
 
     @Override
@@ -156,10 +189,30 @@ public class TelaCamera extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(imageHolder.getScale() > 1F){
+            imageHolder.setScale(1F);
+            return;
+        }
+
+        if(countBackpress >= 2){
+            super.onBackPressed();
+        }else {
+            Toast.makeText(this, "Pressione voltar duas vezes para sair.", Toast.LENGTH_SHORT).show();
+            countBackpress++;
+            // zera contagem caso não seja executado o duplo toque em um segundo
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    countBackpress = 0;
+                }
+            }, 2000);
+        }
+    }
+
     private void addTouchListener(){
         final ImageView image = (ImageView)findViewById(R.id.captured_photo);
-        //final TextView textCordenate = (TextView) findViewById(R.id.cordenates);
-
 
         image.setDrawingCacheEnabled(true);
         //image.buildDrawingCache(true);
@@ -191,6 +244,7 @@ public class TelaCamera extends AppCompatActivity {
         });
 
     }
+
 
     void deleteExternalStoragePublicPicture() {
         // Create a path where we will place our picture in the user's
@@ -226,10 +280,9 @@ public class TelaCamera extends AppCompatActivity {
                 storageDir      /* directory */
         );
 
-
-
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        mCurrenteFilePhoto = image;
         return image;
     }
 
