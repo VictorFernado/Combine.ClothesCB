@@ -11,9 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class TelaDicas extends AppCompatActivity {
-/*
-    Teste
-*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
