@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "892130272131",
+    "firebase_url": "https://combineclothescb.firebaseio.com",
+    "project_id": "combineclothescb",
+    "storage_bucket": "combineclothescb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892130272131:android:320b4de79b7f67f4",
+        "android_client_info": {
+          "package_name": "com.example.acessolivre.combineclothes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892130272131-7q19vqm0nf8k1l3vkgel7ojh4i6um15j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acessolivre.combineclothes",
+            "certificate_hash": "f790de8885e20ca573fd9ad6a5cc8d8c3f9adecc"
+          }
+        },
+        {
+          "client_id": "892130272131-e9d4she5sht2gh6u6800hmc298luldis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFcULo2u8XsU16j2HU6vFzSC0_PxJnsW0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892130272131-e9d4she5sht2gh6u6800hmc298luldis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

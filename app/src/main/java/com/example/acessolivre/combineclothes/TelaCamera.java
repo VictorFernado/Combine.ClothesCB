@@ -1,30 +1,38 @@
 package com.example.acessolivre.combineclothes;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.graphics.Bitmap;
+import android.provider.VoicemailContract;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
-import android.widget.*;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.acessolivre.combineclothes.model.Photo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.*;
-import java.net.URI;
-import java.security.PublicKey;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 
 import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 
 public class TelaCamera extends AppCompatActivity {
@@ -113,7 +120,7 @@ public class TelaCamera extends AppCompatActivity {
         }
 
 
-        ImageButton btnZoom = (ImageButton) findViewById(R.id.btn_zoom);
+        Button btnZoom = (Button) findViewById(R.id.btn_zoom);
         btnZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +128,7 @@ public class TelaCamera extends AppCompatActivity {
             }
         });
 
-        ImageButton btnNewPic = (ImageButton) findViewById(R.id.btn_new_picture);
+        Button btnNewPic = (Button) findViewById(R.id.btn_new_picture);
         btnNewPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +138,28 @@ public class TelaCamera extends AppCompatActivity {
                 takePicture();
             }
         });
+    }
+
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    public void confirmarFoto(View view){
+        String b64 = getStringImage(BitmapFactory.decodeFile(mCurrentPhotoPath));
+        Log.i("Script", b64);
+        Photo photo = new Photo(null, b64, 0L, new Date());
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("photos").push();
+        myRef.setValue(photo);
+        photo.setId(myRef.getKey().toString());
+        myRef.setValue(photo);
+        finish();
     }
 
     @Override
