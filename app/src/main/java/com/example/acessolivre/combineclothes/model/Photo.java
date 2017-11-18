@@ -1,22 +1,29 @@
 package com.example.acessolivre.combineclothes.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jandersonlemos on 16/11/17.
  */
 
-public class Photo {
+public class Photo implements Serializable{
     private String id;
-    private String imageBase64;
-    private Long nota;
+    private String urlImage;
+    private List<Double> notas;
     private Date postDate;
 
-    public Photo(){}
-    public Photo(String id, String imageBase64, Long nota, Date postDate) {
+    public Photo(){
+        notas = new ArrayList<>();
+    }
+    public Photo(String id, String imageBase64, Date postDate) {
+        this.notas = new ArrayList<>();
         this.id = id;
-        this.imageBase64 = imageBase64;
-        this.nota = nota;
+        this.urlImage = imageBase64;
         this.postDate = postDate;
     }
 
@@ -28,12 +35,12 @@ public class Photo {
         this.id = id;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public Date getPostDate() {
@@ -44,20 +51,48 @@ public class Photo {
         this.postDate = postDate;
     }
 
+    @Exclude
+    public Double getNota(){
+        Double nota = 0D;
+        for(Double n : this.getNotas()){
+            nota += n;
+        }
+        Double n = Math.floor(nota / this.getNotas().size());
+        return Double.isNaN(n) ? 1.0D : n;
+    }
+
+    public void addNota(Double nota){
+        this.notas.add(nota);
+    }
+
+    public List<Double> getNotas() {
+        return notas;
+    }
+
+    @Exclude
     @Override
     public String toString() {
         return "Photo{" +
                 "id='" + id + '\'' +
-                ", imageBase64='" + imageBase64 + '\'' +
+                ", urlImage='" + urlImage + '\'' +
                 ", postDate=" + postDate +
+                ", nota=" + getNota()+
                 '}';
     }
 
-    public Long getNota() {
-        return nota;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Photo)) return false;
+
+        Photo photo = (Photo) o;
+
+        return getId() != null ? getId().equals(photo.getId()) : photo.getId() == null;
+
     }
 
-    public void setNota(Long nota) {
-        this.nota = nota;
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

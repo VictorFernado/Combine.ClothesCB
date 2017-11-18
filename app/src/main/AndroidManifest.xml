@@ -2,18 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.acessolivre.combineclothes">
 
-    <uses-feature
-        android:name="android.hardware.camera2.full"
-        android:required="true" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-feature
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-feature android:name="android.permission.READ_EXTERNAL_STORAGE" android:required="true" />
+    <uses-feature android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="true" />
+    <uses-feature android:name="android.hardware.camera2.full" android:required="true" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -51,7 +50,17 @@
         </provider>
 
         <activity android:name=".TelaDicas" />
-        <activity android:name=".ClosetActivity"></activity>
+        <activity android:name=".ClosetActivity" />
+
+        <activity android:name=".VotePhotoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="combineclothes.tk" android:scheme="http" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.acessolivre.combineclothes;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.VoicemailContract;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -24,8 +26,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.acessolivre.combineclothes.model.Photo;
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -150,21 +159,64 @@ public class TelaCamera extends AppCompatActivity {
     }
 
     public void confirmarFoto(View view){
-        String b64 = getStringImage(BitmapFactory.decodeFile(mCurrentPhotoPath));
-        Log.i("Script", b64);
-        Photo photo = new Photo(null, b64, 0L, new Date());
-        // Write a message to the database
+        final ProgressDialog progress = ProgressDialog.show(this,
+                "Aguarde...",
+                "Estamos carregando sua foto", true);
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
+        byte[] data = baos.toByteArray();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("photos").push();
-        myRef.setValue(photo);
-        photo.setId(myRef.getKey().toString());
-        myRef.setValue(photo);
-        finish();
+//        database.setPersistenceEnabled(false);
+        final DatabaseReference myRef = database.getReference("photos").push();
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        StorageReference imageRef = storageRef.child("images/"+new Date().getTime()+".jpg");
+        imageRef.putBytes(data)
+        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Get a URL to the uploaded content
+                @SuppressWarnings("VisibleForTests")
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Photo photo = new Photo(null, downloadUrl.toString(), new Date());
+                myRef.setValue(photo);
+                photo.setId(myRef.getKey().toString());
+                myRef.setValue(photo);
+
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                share.putExtra(Intent.EXTRA_SUBJECT, "CombineClothes");
+                share.putExtra(Intent.EXTRA_TEXT, "CombineClothes, Vote na minha combinação: http://combineclothes.tk/vote/"+photo.getId());
+                startActivity(Intent.createChooser(share, "Compartilhar"));
+                progress.dismiss();
+                finish();
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Log.e(CombineClothes.TAG, exception.getMessage());
+                progress.dismiss();
+                Toast.makeText(TelaCamera.this, "Problema no carregamento da Imagem.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if("".equals(mCurrentPhotoPath)){
+            finish();
+            return;
+        }
         Bitmap imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
         imageHolder.setImageBitmap(imageBitmap);
         imagemTransp = imageBitmap;
@@ -174,49 +226,6 @@ public class TelaCamera extends AppCompatActivity {
 
     }
 
-    public void createExternalStoragePublicPicture() {
-        // Create a path where we will place our picture in the user's
-        // public pictures directory.  Note that you should be careful about
-        // what you place here, since the user often manages these files.  For
-        // pictures and other media owned by the application, consider
-        // Context.getExternalMediaDir().
-        File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File file = new File(path, "CombineClothes.jpg");
-
-        try {
-            // Make sure the Pictures directory exists.
-            path.mkdirs();
-
-            // Very simple code to copy a picture from the application's
-            // resource into the external file.  Note that this code does
-            // no error checking, and assumes the picture is small (does not
-            // try to copy it in chunks).  Note that if external storage is
-            // not currently mounted this will silently fail.
-            InputStream is = getResources().openRawResource(R.raw.tela_2);
-            OutputStream os = new FileOutputStream(file);
-            byte[] data = new byte[is.available()];
-            is.read(data);
-            os.write(data);
-            is.close();
-            os.close();
-
-            // Tell the media scanner about the new file so that it is
-            // immediately available to the user.
-            MediaScannerConnection.scanFile(this,
-                    new String[]{file.toString()}, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.i("ExternalStorage", "Scanned " + path + ":");
-                            Log.i("ExternalStorage", "-> uri=" + uri);
-                        }
-                    });
-        } catch (IOException e) {
-            // Unable to create file, likely because external storage is
-            // not currently mounted.
-            Log.w("ExternalStorage", "Error writing " + file, e);
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -275,27 +284,6 @@ public class TelaCamera extends AppCompatActivity {
     }
 
 
-    void deleteExternalStoragePublicPicture() {
-        // Create a path where we will place our picture in the user's
-        // public pictures directory and delete the file.  If external
-        // storage is not currently mounted this will fail.
-        File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File file = new File(path, "CombineClothes.jpg");
-        file.delete();
-    }
-
-    boolean hasExternalStoragePublicPicture() {
-        // Create a path where we will place our picture in the user's
-        // public pictures directory and check if the file exists.  If
-        // external storage is not currently mounted this will think the
-        // picture doesn't exist.
-        File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File file = new File(path, "CombineClothes.jpg");
-        return file.exists();
-    }
-
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -315,38 +303,6 @@ public class TelaCamera extends AppCompatActivity {
         return image;
     }
 
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-             // Create the File where the photo should go
-             File photoFile = null;
-             try {
-                 photoFile = createImageFile();
-             } catch (IOException ex) {
-                 // Error occurred while creating the File
-                 Log.w("ExternalStorage", "Erro ao CRIAR o arquivo ");
-             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                String authorities = getApplicationContext().getPackageName() + ".fileprovider";
-                Uri photoURI = FileProvider.getUriForFile(TelaCamera.this,
-                        authorities,
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
 
     public static int[] getDominantColor(Bitmap bitmap, Rect rect) {
 
